@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.example.demo.mapper.NoticeMapper">
+    <resultMap id="NoticeVO" type="com.example.demo.vo.NoticeVO">
+        <result property="notice_id" column="notice_id"/>
+        <result property="notice_title" column="notice_title"/>
+        <result property="notice_coments" column="notice_coments"/>
+        <result property="mod_date" column="mod_date"/>
+        <result property="use_yn" column="use_yn"/>
+    </resultMap>
+     
+    <select id="noticeListCount" resultType="Integer">
+        select count(*)
+        from library_notice;
+    </select>
+     
+    <select id="noticeList" resultMap = "NoticeVO">
+        select  notice_id,
+                notice_title,
+                notice_coments,
+                use_yn,
+                DATE_FORMAT(mod_date, '%Y-%m-%d') mod_date
+        from library_notice
+        order by notice_id
+        limit #{startIndex}, #{cntPerPage}
+         
+    </select>
+    <select id="noticeOne" parameterType="String" resultMap = "NoticeVO">
+        select  notice_id,
+                notice_title,
+                notice_coments
+        from library_notice
+        where notice_id = #{notice_id}
+    </select>
+    <insert id="noticeInsert" parameterType="com.example.demo.vo.NoticeVO">
+        insert into library_notice
+        (
+            notice_title,
+            notice_coments,
+            mod_date
+        )
+        values
+        (
+            #{notice_title},
+            #{notice_coments},
+            NOW()
+        )
+    </insert>
+    <update id="noticeUpdate" parameterType="com.example.demo.vo.NoticeVO">
+        update library_notice set
+            notice_title = #{notice_title},
+            notice_coments = #{notice_coments},
+            mod_date = NOW()
+        where notice_id = #{notice_id}
+    </update>
+    <delete id="noticeDelete" parameterType="String">
+        delete from library_notice
+        where notice_id = #{notice_id}
+    </delete>
+ </mapper>
