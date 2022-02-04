@@ -1,0 +1,98 @@
+//220113
+
+submit onsubmit action method jsp
+ajax
+<a href="/___/___?___=${___.____}">_____</a>
+<a href="javascript:___();">______</a>
+
+@controller
+
+
+@requestmapping(/)
+@getmapping(/)
+@postmapping(/)
+@ReqsponseBody
+public String login(UserVo vo)// jsp에서 tag와 vo의 변수 매칭  
+@requestparam("jsp tag") 변수 , Model m 
+HttpSession session
+{
+session.setAttribute("uid", vo.getUid());
+
+m.addAttribute("jsp tag",______)
+String.format("{\"___\":%b }", boolean);
+
+
+@autowired
+@conmonent___vo
+@service___svc
+
+사원정보 CRUD
+ = 로그인하지 않은 이용자는 로그인 폼으로...
+Object uid = session.getAttribute("uid")
+if(uid == null) {
+
+}
+
+사원정보 입력기능을 요청할때 
+로그인 검사를 해여 로그인하지 않았다면 로그인 폼을 보여준다.
+서비스에서 메소드 만들때 파라미터 안에 HTTP안쓸려면
+생성자 만들고 컨트롤러에서 오토와이어드
+
+
+컨트롤러에서 boolean값을 포워딩하면 var___ = eval('true'); 변환!
+
+Q.사원접보 입력 폼이 화면에 보일때 그 페이지에 [로그아웃] 링크 추가
+[로그아웃]을 클릭하면 '로그아웃 성공'메시지 표시
+
+
+@PathVariable("변수이름");
+@GetMapping("/emp/delete/5");
+--->
+@GetMapping("/emp/delete?no=5"); QueryStr 
+--->requestgetParameter()
+--->RequestParam
+
+Cart MVC 구현
+ - 한 이용자가 여러 페이지에서 구입한 상품은 한 장소에 보관 및 관리
+ - session.setAttribute("p1",product);
+   Cart cart = new Cart();
+ - session.setAttribute("cart", cart); 
+
+
+ - Cart cart= (Cart)session.getAttribute("cart");
+   Gppds book = new Book("제목", 가격, 출판사, 출판일);
+   cart.add(book);
+   구입총액 : cart.total();
+
+/shop/book/1 : 책 5권 정보를 보여준다.(books.data)
+	- 항 권에 대한 상세 페이지로 이동
+	- 제목, 출판사, 가격, 출판일
+	- 장바구니에 담기 ? 서버에서는 도서 정보를 이용자의 장바구니에 저장
+	- Book 클래스
+
+//22.01.17
+화면 갱신 없이 내용 바꿀때 ajax
+수량변경시 자바수니 보기 페이지에 나타나는 총계 xxx 으ㅏㄴ도 변경되도록 해보세요...
+
+장바구니 삭제
+1.장바구니 페이지에 하단에 {장바구니 비우기] 링크를 누근다
+2. 정말로 장바구니를 비우시겠어요? 라고 묻는 메세지가 표시된다
+3. '확인' 버틍을 누른다.
+	-서버에서는 해당 이용자의 장바구니를 비우고 빈 내용의 장바구니 페이지로 이동
+4. 장바구니의 내용이 모두 제거된 빈 장바구니가 표시된다.
++시나리오에서 명사들은 클래스 구현 후보
+
+결제
+ - 결제 품목, 주문자, 날짜 등을 저장
+ - 결제 성공 메시지
+  - '장바구니 상품들을 결제하시겠어요?'
+  - order.data 파일에 저장 되도록 한다.
+  - 저장된 결과 성공 메시지
+  - ajax 성공뜨고 장바구니 비우고 리스트 페이지로 이동. 
+
+스프링을 사용하여
+주문 정보 리스트를 화면에 표시하는 기능을 작성해보세요......
+
+ - 이용자, 품목번호, 결재총액, 주문날짜
+ - OrderInfoVO, ShopController, ShopDAO, ShopSVC
+ - 리스트 항목을 클릭하면 해당 항목4의 상세정보 표시 

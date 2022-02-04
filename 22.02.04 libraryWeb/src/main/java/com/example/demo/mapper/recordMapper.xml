@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.RecordMapper">
+
+	<insert id="insertRecord" 
+    	parameterType="com.example.demo.vo.RecordVO">
+    	INSERT INTO library_rent
+    	(isbn,uid,title,author,publisher,rent_time)
+    	VALUES(#{isbn},#{uid},#{title},#{author},#{publisher},NOW())
+    </insert>
+    
+    	<insert id="insertReserve" 
+    	parameterType="com.example.demo.vo.RecordVO">
+    	INSERT INTO library_reserve
+		(isbn,uid,title,author,publisher,reserve)
+    	VALUES(#{isbn},#{uid},#{title},#{author},#{publisher},1)
+		ON DUPLICATE KEY UPDATE
+    	reserve = reserve+1;
+    </insert>
+    
+        <select id="reserveNo" 
+    	resultType="com.example.demo.vo.RecordVO" 
+    	parameterType="com.example.demo.vo.RecordVO">
+        SELECT reserve
+        FROM library_reserve
+        WHERE isbn = #{isbn}
+    </select>
+    
+     <insert id="insertDelivery" 
+    	parameterType="com.example.demo.vo.RecordVO">
+    	INSERT INTO library_rent
+    	(isbn,uid,title,author,publisher,rent_time,delivery)
+    	VALUES(#{isbn},#{uid},#{title},#{author},#{publisher},NOW(),'배달신청')
+    </insert>
+    	<!-- db에서 isbn으로 리턴타임이 없는 행을 리스트로 출력 -->
+        <select id="getRentStatusByIsbn" 
+    	resultType="com.example.demo.vo.RecordVO" 
+    	parameterType="com.example.demo.vo.RecordVO">
+        SELECT
+   	    imageUrl, isbn, uid,  title, author,publisher,
+   	    rent_time,return_time,rent_type
+        FROM library_rent
+        WHERE isbn=#{isbn} AND return_time is null
+        ORDER BY 1 DESC
+    </select>
+    
+         <insert id="insertStatus" 
+    	parameterType="com.example.demo.vo.RecordVO">
+    	INSERT INTO library_report
+    	VALUES
+    	(NULL,#{uid},#{isbn},"대출",NOW(),'대출완료')
+    </insert>
+    
+</mapper>
